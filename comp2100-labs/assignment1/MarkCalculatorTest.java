@@ -33,35 +33,54 @@ public class MarkCalculatorTest {
 				new MarkCalculator3(),
 				new MarkCalculator1()	
 		   );
-
 	}
 	
 	@Parameter
 	public MarkCalculator calculator;
-	
-	
+	/**
+	 * Test for ComponentOutOfRangeException.
+	 * @throws ComponentOutOfRangeException
+	 */
+	// Out of the down bound
 	@Test(expected = ComponentOutOfRangeException.class)
-	public void testException() throws ComponentOutOfRangeException {
+	public void testExceptionLabDown() throws ComponentOutOfRangeException {
 		calculator.calculateMark(-1, 0, 0, 0, true);
-		// Out of the down bound
+	}
+	@Test(expected = ComponentOutOfRangeException.class)
+	public void testExceptionA1Down() throws ComponentOutOfRangeException {
 		calculator.calculateMark(0, -1, 0, 0, true);
+	}
+	@Test(expected = ComponentOutOfRangeException.class)
+	public void testExceptionA2Down() throws ComponentOutOfRangeException {
 		calculator.calculateMark(0, 0, -1, 0, true);
+	}
+	@Test(expected = ComponentOutOfRangeException.class)
+	public void testExceptionFinalDown() throws ComponentOutOfRangeException {
 		calculator.calculateMark(0, 0, 0, -1, true);
-		calculator.calculateMark(0, -1, 0, 0, false);
-		calculator.calculateMark(0, 0, -1, 0, false);
-		calculator.calculateMark(0, 0, 0, -1, false);
-
-		// Out of the up bound
-		calculator.calculateMark(11, 10, 10, 100, true);
-		calculator.calculateMark(10, 11, 10, 100, true);
-		calculator.calculateMark(10, 10, 11, 100, true);
-		calculator.calculateMark(10, 10, 10, 101, true);
-		calculator.calculateMark(11, 10, 10, 100, false);
-		calculator.calculateMark(10, 11, 10, 100, false);
-		calculator.calculateMark(10, 10, 11, 100, false);
-		calculator.calculateMark(10, 10, 10, 101, false);
 	}
 
+	// Out of the up bound
+	@Test(expected = ComponentOutOfRangeException.class)
+	public void testExceptionLabUp() throws ComponentOutOfRangeException {
+		calculator.calculateMark(11, 10, 10, 100, true);
+	}
+	@Test(expected = ComponentOutOfRangeException.class)  // MarkCal6 failed here.
+	public void testExceptionA1Up() throws ComponentOutOfRangeException {
+		calculator.calculateMark(10, 11, 10, 100, true);
+	}
+	@Test(expected = ComponentOutOfRangeException.class)  // MarkCal6 failed here.
+	public void testExceptionA2Up() throws ComponentOutOfRangeException {
+		calculator.calculateMark(10, 10, 11, 100, true);
+	}
+	@Test(expected = ComponentOutOfRangeException.class)
+	public void testExceptionFinalUp() throws ComponentOutOfRangeException {
+		calculator.calculateMark(10, 10, 10, 101, true);
+	}
+
+	/**
+	 * Test on all grades levels including boundary.
+	 * @throws ComponentOutOfRangeException
+	 */
 	@Test
 	public void testGradeN() throws ComponentOutOfRangeException {
 		// 0 ~ 44 : N
@@ -173,18 +192,45 @@ public class MarkCalculatorTest {
     public void testGradeHD() throws ComponentOutOfRangeException {
 	    // 80 ~ 100 : HD
 		// No rounding.
-		assertEquals(new MarkGrade(80, Grade.HD), calculator.calculateMark(7, 6, 8, 86, true));	      // 80. MarkCla2 and 3 failed here.
-		assertEquals(new MarkGrade(94, Grade.HD), calculator.calculateMark(7, 8, 10, 100, true));     // 94
 		assertEquals(new MarkGrade(100, Grade.HD), calculator.calculateMark(10, 10, 10, 100, true));  // 100
-	
+		assertEquals(new MarkGrade(94, Grade.HD), calculator.calculateMark(7, 8, 10, 100, true));     // 94
+		assertEquals(new MarkGrade(80, Grade.HD), calculator.calculateMark(7, 6, 8, 86, true));	      // 80. MarkCla2 and 3 failed here.
+
 		// Rounding up.
-		assertEquals(new MarkGrade(80, Grade.HD), calculator.calculateMark(6, 9, 7, 83, true));       // 79.8
-		assertEquals(new MarkGrade(86, Grade.HD), calculator.calculateMark(7, 8, 9, 89, true));       // 85.9
 		assertEquals(new MarkGrade(99, Grade.HD), calculator.calculateMark(10, 10, 9, 100, true));    // 98.5
-		
+		assertEquals(new MarkGrade(86, Grade.HD), calculator.calculateMark(7, 8, 9, 89, true));       // 85.9
+		assertEquals(new MarkGrade(80, Grade.HD), calculator.calculateMark(6, 9, 7, 83, true));       // 79.8
+
 		// Rounding down.
-		assertEquals(new MarkGrade(80, Grade.HD), calculator.calculateMark(6, 7, 9, 84, true));       // 80.4
-		assertEquals(new MarkGrade(98, Grade.HD), calculator.calculateMark(10, 10, 10, 96, true));     // 68.1
 		assertEquals(new MarkGrade(99, Grade.HD), calculator.calculateMark(10, 10, 10, 99, true));    // 99.4
+		assertEquals(new MarkGrade(98, Grade.HD), calculator.calculateMark(10, 10, 10, 96, true));     // 68.1
+		assertEquals(new MarkGrade(80, Grade.HD), calculator.calculateMark(6, 7, 9, 84, true));       // 80.4
+	}
+	
+	/**
+	 * White-box test orienting MarkCalcu
+	 * Test with specific score value.
+	 * @throws ComponentOutOfRangeException
+	 */
+	@Test
+	public void testSpecificScore() throws ComponentOutOfRangeException {
+		assertEquals(new MarkGrade(50, Grade.P), calculator.calculateMark(2, 7, 8, 43, true));  // 50.3. MarkCla4 failed here.
+	}
+	
+	/**
+	 * Test on all decimal values from .1 to .9 
+	 * @throws ComponentOutOfRangeException
+	 */
+	@Test
+	public void testAllDecimalValues() throws ComponentOutOfRangeException {
+		assertEquals(new MarkGrade(17, Grade.N), calculator.calculateMark(3, 2, 3, 11, true));     // 17.1
+		assertEquals(new MarkGrade(31, Grade.N), calculator.calculateMark(4, 3, 6, 22, true));     // 30.7
+		assertEquals(new MarkGrade(47, Grade.PX), calculator.calculateMark(5, 7, 8, 33, true));     // 47.3
+		assertEquals(new MarkGrade(58, Grade.P), calculator.calculateMark(6, 8, 9, 44, true));     // 57.9
+		assertEquals(new MarkGrade(68, Grade.C), calculator.calculateMark(6, 9, 10, 55, true));    // 67.5
+		assertEquals(new MarkGrade(20, Grade.N), calculator.calculateMark(7, 2, 2, 11, true));     // 19.6
+		assertEquals(new MarkGrade(33, Grade.N), calculator.calculateMark(8, 4, 4, 22, true));     // 33.2
+		assertEquals(new MarkGrade(47, Grade.PX), calculator.calculateMark(9, 6, 6, 33, true));     // 46.8
+		assertEquals(new MarkGrade(60, Grade.C), calculator.calculateMark(10, 8, 8, 44, true));    // 60.4
 	}
 }
