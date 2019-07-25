@@ -208,7 +208,7 @@ public class MarkCalculatorTest {
 	}
 	
 	/**
-	 * White-box test orienting MarkCalcu
+	 * White-box test orienting MarkCalculator4.
 	 * Test with specific score value.
 	 * @throws ComponentOutOfRangeException
 	 */
@@ -218,19 +218,20 @@ public class MarkCalculatorTest {
 	}
 	
 	/**
-	 * Test on all decimal values from .1 to .9 
+	 * White-box test orienting MarkCalculator0.
+	 * Test on all possible decimal values
 	 * @throws ComponentOutOfRangeException
-	 */
+	 */	
 	@Test
-	public void testAllDecimalValues() throws ComponentOutOfRangeException {
-		assertEquals(new MarkGrade(17, Grade.N), calculator.calculateMark(3, 2, 3, 11, true));     // 17.1
-		assertEquals(new MarkGrade(31, Grade.N), calculator.calculateMark(4, 3, 6, 22, true));     // 30.7
-		assertEquals(new MarkGrade(47, Grade.PX), calculator.calculateMark(5, 7, 8, 33, true));     // 47.3
-		assertEquals(new MarkGrade(58, Grade.P), calculator.calculateMark(6, 8, 9, 44, true));     // 57.9
-		assertEquals(new MarkGrade(68, Grade.C), calculator.calculateMark(6, 9, 10, 55, true));    // 67.5
-		assertEquals(new MarkGrade(20, Grade.N), calculator.calculateMark(7, 2, 2, 11, true));     // 19.6
-		assertEquals(new MarkGrade(33, Grade.N), calculator.calculateMark(8, 4, 4, 22, true));     // 33.2
-		assertEquals(new MarkGrade(47, Grade.PX), calculator.calculateMark(9, 6, 6, 33, true));     // 46.8
-		assertEquals(new MarkGrade(60, Grade.C), calculator.calculateMark(10, 8, 8, 44, true));    // 60.4
+	public void testAllValues() throws ComponentOutOfRangeException {
+		for (int i = 0; i <= 9; i++) {  
+			for (int j = 0; j <= 10; j++) {
+				for (int k = 0; k <= 10; k++) {
+					int raw = (i*100 + j*150 + k*60);
+					int score = ((raw % 100 < 50) ? (raw / 100) : (raw / 100) + 1);
+					assertEquals(new MarkGrade(score, Grade.N), calculator.calculateMark(i, 0, j, k, true));  // MarkCla0 failed here.
+				}
+			}
+		}
 	}
 }
