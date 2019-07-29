@@ -219,19 +219,11 @@ public class MarkCalculatorTest {
 	
 	/**
 	 * White-box test orienting MarkCalculator0.
-	 * Test on all possible decimal values
+	 * Test on precision on decimal values
 	 * @throws ComponentOutOfRangeException
 	 */	
 	@Test
-	public void testAllValues() throws ComponentOutOfRangeException {
-		for (int i = 0; i <= 9; i++) {  
-			for (int j = 0; j <= 10; j++) {
-				for (int k = 0; k <= 10; k++) {
-					int raw = (i*100 + j*150 + k*60);
-					int score = ((raw % 100 < 50) ? (raw / 100) : (raw / 100) + 1);
-					assertEquals(new MarkGrade(score, Grade.N), calculator.calculateMark(i, 0, j, k, true));  // MarkCla0 failed here.
-				}
-			}
-		}
+	public void testFloatPrecision() throws ComponentOutOfRangeException {
+		assertEquals(new MarkGrade(14, Grade.N), calculator.calculateMark(9, 0, 1, 5, true));  //  MarkCla5 failed here.
 	}
 }
