@@ -56,8 +56,19 @@ public class NonEmptyBinaryTree <T extends Comparable<T>> extends BinaryTree <T>
 	public BinaryTree<T> insert(T d) {
 		// TODO: Add your implementation here
 		// ########## YOUR CODE STARTS HERE ##########
+		if (find(d)) {
+			return this;
+		}
 
-		// ########## YOUR CODE ENDS HERE ##########		
+		// Find the leaf position to insert this node.
+		if (d.compareTo(data) < 0) {
+			left = left.insert(d);  // If left child is empty, it returns a new non-empty node.
+		} else {  // d.compareTo(data) > 0
+			right = right.insert(d);  // If right child is empty, it returns a new non-empty node.
+		}
+
+		return this;
+		// ########## YOUR CODE ENDS HERE ##########
 	}
 	
 	/**
@@ -104,7 +115,39 @@ public class NonEmptyBinaryTree <T extends Comparable<T>> extends BinaryTree <T>
 	public BinaryTree<T> delete(T d) {
 		// TODO: Add your implementation here
 		// ########## YOUR CODE STARTS HERE ##########
+		if (!find(d)) {
+			return this;
+		}
 
+		if (d.compareTo(data) < 0) {
+			left = left.delete(d);
+		} else if (d.compareTo(data) > 0) {
+			right = right.delete(d);
+		} else { //d.compareTo(data) == 0
+			// Case 00: have no child.
+			if (size() == 1) {
+				return new EmptyBinaryTree<T>();
+			} else {
+				// Case 01: have one child.
+				if (left.isEmpty()) {
+					return right;
+				}
+				else if (right.isEmpty()) {
+					return left;
+				}
+				else {
+					// Case 02: have two children, replaced with successor.
+					T successor = right.smallest();
+					right.delete(successor);
+					NonEmptyBinaryTree<T> sucNode = new NonEmptyBinaryTree<T>(successor);
+					sucNode.left = this.left;
+					sucNode.right = this.right;
+					return sucNode;
+				}
+			}
+		}
+
+		return this;
 		// ########## YOUR CODE ENDS HERE ##########
 	}
 
