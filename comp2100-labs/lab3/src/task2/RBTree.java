@@ -96,6 +96,9 @@ public class RBTree<T extends Comparable<T>> {
                 // TODO: Implement this part
             	// ########## YOUR CODE STARTS HERE ##########
 
+                x.parent.colour = Colour.BLACK;
+                uncle.colour = Colour.BLACK;
+                uncle.parent.colour = Colour.RED;
 
             	// ########## YOUR CODE ENDS HERE ##########
                 // Check if violated further up the tree
@@ -195,7 +198,24 @@ public class RBTree<T extends Comparable<T>> {
         // HINT: It is the mirrored version of rotateLeft()
     	// ########## YOUR CODE STARTS HERE ##########
 
-        
+        // Make parent (if it exists) and right branch point to each other
+        if (x.parent != null) {
+            // Determine whether this node is the left or left child of its parent
+            if (x.parent.l.value == x.value) {
+                x.parent.l = x.l;
+            } else {
+                x.parent.r = x.l;
+            }
+        }
+        x.l.parent = x.parent;
+
+        x.parent = x.l;
+        // Take left node's right branch
+        x.l = x.parent.r;
+        x.l.parent = x;
+        // Take the place of the right node's left branch
+        x.parent.r = x;
+
     	// ########## YOUR CODE ENDS HERE ##########
     }
     
