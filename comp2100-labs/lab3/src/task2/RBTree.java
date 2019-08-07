@@ -113,10 +113,14 @@ public class RBTree<T extends Comparable<T>> {
                         rotateLeft(x);
                     } else {
                         // This is part of the "then" clause where left and right are swapped
-                         // Perform right rotation
+                        // Perform right rotation
                         // TODO: Implement this part
                     	// ########## YOUR CODE STARTS HERE ##########
 
+                        if (x.value == root.value) {
+                            root = x.l;
+                        }
+                        rotateRight(x);
 
                     	// ########## YOUR CODE ENDS HERE ##########
                     }
@@ -131,6 +135,10 @@ public class RBTree<T extends Comparable<T>> {
                     // Perform right rotation
                 	// ########## YOUR CODE STARTS HERE ##########
 
+                    if (x.parent.parent.value == root.value) {
+                        root = x.parent;
+                    }
+                    rotateRight(x.parent.parent);
 
                 	// ########## YOUR CODE ENDS HERE ##########
                 } else
@@ -139,7 +147,10 @@ public class RBTree<T extends Comparable<T>> {
                     // Perform left rotation
                 	// ########## YOUR CODE STARTS HERE ##########
 
-
+                    if (x.parent.parent.value == root.value) {
+                        root = x.parent;
+                    }
+                    rotateLeft(x.parent.parent);
 
                 	// ########## YOUR CODE ENDS HERE ##########
                 }
