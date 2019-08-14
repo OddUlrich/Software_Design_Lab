@@ -10,22 +10,22 @@ public class SubExp extends Exp {
 	private Exp term;
 
 
-	public SubExp(Exp exp, Exp term) {
-		this.exp = exp;
+	public SubExp(Exp term, Exp exp) {
 		this.term = term;
+		this.exp = exp;
 
 	}
 
 	@Override
 	public String show() {
 		// TODO: Implement show() function for displaying the expression
-		return "(" + exp.show() + " - " + term.show() + ")";
+		return "(" + term.show() + " - " + exp.show() + ")";
 	}
 
 	@Override
 	public int evaluate() {
 		// TODO: Implement evaluate() function for evaluating the result
-		return (exp.evaluate() - term.evaluate());
+		return (term.evaluate() - exp.evaluate());
 	}
 
 }

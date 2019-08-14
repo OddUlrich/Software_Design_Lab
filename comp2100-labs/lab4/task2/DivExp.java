@@ -8,22 +8,22 @@
  */
 
 public class DivExp extends Exp {
+	private Exp factor;	
 	private Exp term;
-	private Exp factor;
 
-	public DivExp(Exp term, Exp factor) {
-		this.term = term;
+	public DivExp(Exp factor, Exp term) {
 		this.factor = factor;
+		this.term = term;		
 	}
 
 	@Override
 	public String show() {
-		return "(" + term.show() + " / " + factor.show() + ")";
+		return "(" + factor.show() + " / " + term.show() + ")";
 	}
 
 	@Override
 	public int evaluate() {
-		return (term.evaluate() / factor.evaluate());
+		return (factor.evaluate() / term.evaluate());
 	}
 
 

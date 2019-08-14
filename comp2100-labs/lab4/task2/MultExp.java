@@ -11,20 +11,21 @@ public class MultExp extends Exp {
 	private Exp factor;
 
 
-	public MultExp(Exp term, Exp factor) {
+	public MultExp(Exp factor, Exp term) {
+		this.factor = factor;		
 		this.term = term;
-		this.factor = factor;
+
 
 	}
 
 	@Override
 	public String show() {
-		return "(" + term.show() + " * " + factor.show() + ")";
+		return "(" + factor.show() + " * " + term.show() + ")";
 	}
 
 	@Override
 	public int evaluate() {
-		return (term.evaluate() * factor.evaluate());
+		return (factor.evaluate() * term.evaluate());
 	}
 
 }

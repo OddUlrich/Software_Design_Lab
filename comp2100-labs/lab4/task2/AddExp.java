@@ -10,19 +10,19 @@ public class AddExp extends Exp {
 	private Exp exp;
 	private Exp term;
 
-	public AddExp(Exp exp, Exp term) {
-		this.exp = exp;
+	public AddExp(Exp term, Exp exp) {
 		this.term = term;
+		this.exp = exp;
 	}
 
 	@Override
 	public String show() {
-		return "(" + exp.show() + " + " + term.show() + ")";
+		return "(" + term.show() + " + " + exp.show() + ")";
 	}
 
 	@Override
 	public int evaluate() {
-		return (exp.evaluate() + term.evaluate());
+		return (term.evaluate() + exp.evaluate());
 	}
 
 }

@@ -46,13 +46,27 @@ public class MyTokenizer extends Tokenizer {
         	currentToken = new Token("-", Token.Type.SUB);
 
         // TODO: Implement multiplication and division tokenising
+        if(firstChar=='*')
+            currentToken = new Token("*", Token.Type.MUL);
+        if(firstChar=='/')
+            currentToken = new Token("/", Token.Type.DIV);
+
         // TODO: Implement left round bracket and right round bracket
+        if(firstChar=='(')
+            currentToken = new Token("(", Token.Type.LBRA);
+        if(firstChar==')')
+            currentToken = new Token(")", Token.Type.RBRA);
+
         // TODO: Implement integer literal tokenising
         // HINT: Character.isDigit() may be useful        
         // ########## YOUR CODE STARTS HERE ##########
-
-
-        // ########## YOUR CODE ENDS HERE ##########
+        if(Character.isDigit(firstChar)) {
+            int pos = 1;
+            while (pos < _buffer.length() && Character.isDigit(_buffer.charAt(pos)))
+                pos++;
+            currentToken = new Token(_buffer.substring(0, pos), Token.Type.INT);
+        }
+            // ########## YOUR CODE ENDS HERE ##########
         
         // Remove the extracted token from buffer
         int tokenLen = currentToken.token().length();
