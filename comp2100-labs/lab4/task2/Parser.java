@@ -70,31 +70,21 @@ public class Parser {
     public Exp parseFactor() {
         // TODO: Implement parse function for <factor>
         // ########## YOUR CODE STARTS HERE ##########
+        Exp uInt = null;
         if (_tokenizer.hasNext() && _tokenizer.current().type() == Token.Type.INT) {
-            Exp uInt = new IntExp(Integer.parseInt(_tokenizer.current().token()));
+            uInt= new IntExp(Integer.parseInt(_tokenizer.current().token()));
             _tokenizer.next();
             return uInt;
 
         } else if (_tokenizer.hasNext() && _tokenizer.current().type() == Token.Type.LBRA) {
-            _tokenizer.next();
-            return parseExp();
-
-        }  else if (_tokenizer.hasNext() && _tokenizer.current().type() == Token.Type.RBRA) {
-            _tokenizer.next();
-            if (_tokenizer.hasNext()
-                && (_tokenizer.current().type() == Token.Type.ADD)
-                    || (_tokenizer.current().type() == Token.Type.ADD)) {
+            // New parsing process for the content inside braces().
+            while (_tokenizer.current().type() != Token.Type.RBRA) {
                 _tokenizer.next();
-                return parseExp();
-
-            } else if (_tokenizer.hasNext()
-                && (_tokenizer.current().type() == Token.Type.MUL)
-                    || (_tokenizer.current().type() == Token.Type.DIV)) {
-                _tokenizer.next();
-                return parseTerm();
-            } else {
-                return null;
+                uInt = parseExp();
             }
+            _tokenizer.next();
+            return uInt;
+
         } else {
             return null;
         }
