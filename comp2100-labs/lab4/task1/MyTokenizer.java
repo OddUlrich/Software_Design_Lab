@@ -7,9 +7,9 @@
  * 3. Check the correctness of implementation via "TokenizerTest.java" before the submission.
  * 4. You may create additional fields or methods to finish your implementation.
  *
- * @author:
- * @Uid:
- * @Date:
+ * @author: Wyman Wong
+ * @Uid: u6726234
+ * @Date: 14-08-2019
  */
 
 public class MyTokenizer extends Tokenizer {

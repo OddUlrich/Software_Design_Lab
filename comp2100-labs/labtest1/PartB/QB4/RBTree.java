@@ -6,6 +6,12 @@ public class RBTree<T extends Comparable<T>> {
 
     // Check property 3
     private boolean blackNodeRecurse(Node cur) {
+        // Leaf node returns true.
+        if (cur.value == null) return true;
+
+
+//        Node left,
+//        while ()
 
     }
 

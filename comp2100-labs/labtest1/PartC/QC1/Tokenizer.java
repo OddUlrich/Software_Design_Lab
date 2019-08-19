@@ -25,7 +25,31 @@ public class Tokenizer {
         }
         
         char firstChar = _buffer.charAt(0);
-        
+        int pos = 0;
+        if (firstChar == '<') {
+            // Get the length of tag.
+            while (pos < _buffer.length() && _buffer.charAt(pos) != '>') {
+                pos++;
+            }
+
+            if (pos == _buffer.length()) {
+                current = new Token(TokenType.Value, _buffer.substring(0, pos));
+            } else if (_buffer.charAt(1) == '/') {
+                pos++;
+                current = new Token(TokenType.CloseTag, _buffer.substring(0, pos));
+            } else {
+                pos++;
+                current = new Token(TokenType.OpenTag, _buffer.substring(0, pos));
+            }
+        } else {
+            while (pos < _buffer.length() && _buffer.charAt(pos) != '<') {
+                pos++;
+            }
+
+            current = new Token(TokenType.Value, _buffer.substring(0, pos));
+        }
+
+        _buffer = _buffer.substring(pos);
         // TODO: Finish this method
     }
 

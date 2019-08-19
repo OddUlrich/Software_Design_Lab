@@ -7,9 +7,9 @@
  *  <term>   ::=  <factor> | <factor> * <term> | <factor> / <term>
  *  <factor> ::= <unsigned integer> | ( <exp> )
  *
- * @author:
- * @Uid:
- * @Date:
+ * @author: Wyman Wong
+ * @Uid: u6726234
+ * @Date: 15-08-2019
  */
 
 public class Parser {
