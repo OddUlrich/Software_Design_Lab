@@ -24,14 +24,14 @@ public class BST {
 		//TODO: Implement this function
 		Integer sum = 0;
 
-		if ((root == null) || ((root.left == null) && (root.right == null))) {
+		if (root == null) {
 			return 0;
 		}
 
 		Node curNode = root;
 		sum += nextOddSum(curNode);
 
-		return sum; //remove this once you have implemented
+		return sum;
 	}
 	
 	public class Node {

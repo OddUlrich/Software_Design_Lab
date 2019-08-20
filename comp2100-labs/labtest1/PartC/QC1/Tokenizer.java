@@ -27,6 +27,8 @@ public class Tokenizer {
         char firstChar = _buffer.charAt(0);
         int pos = 0;
         if (firstChar == '<') {
+            // TODO: Finish this method
+
             // Get the length of tag.
             while (pos < _buffer.length() && _buffer.charAt(pos) != '>') {
                 pos++;
@@ -50,7 +52,6 @@ public class Tokenizer {
         }
 
         _buffer = _buffer.substring(pos);
-        // TODO: Finish this method
     }
 
     /**

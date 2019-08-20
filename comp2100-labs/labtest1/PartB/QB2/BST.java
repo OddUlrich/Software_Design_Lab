@@ -3,38 +3,36 @@ import java.util.*;
 public class BST {
 	Node root;
 
+	public Integer commonAncestorRecurse(Node cur, int min, int max) {
+		if (cur == null) {
+			return 0;
+		}
+
+		if (cur.value.compareTo(min) < 0 && cur.value.compareTo(max) < 0) {
+			// both min and max are in the right subtree.
+			return commonAncestorRecurse(cur.right, min, max);
+
+		} else if (cur.value.compareTo(min) > 0 && cur.value.compareTo(max) > 0) {
+			// both min and max are in the left subtree.
+			return commonAncestorRecurse(cur.left, min, max);
+
+		} else if (cur.value.compareTo(min) == 0 || cur.value.compareTo(max) == 0) {
+			// cur.value == min or max.
+			return cur.parent.value;
+		}
+
+		// min is in left subtree, max is in right subtree.
+		return cur.value;
+
+	}
+
 	public Integer leastCommonAncestor(int x, int y) {
 		// TODO: Implement this method
-		Node curNode = null;
-		Node leftNode = null;
-		Node rightNode = null;
-
-		if (x == y) {
-			return find(x).value;
-		} else if (x < y) {
-			leftNode = find(x);
-			rightNode = find(y);
+		if (x > y) {
+			return commonAncestorRecurse(root, x, y);
 		} else {
-			leftNode = find(y);
-			rightNode = find(x);
+			return commonAncestorRecurse(root, y, x);
 		}
-
-		if (leftNode.right == rightNode) {
-			return leftNode.parent.value;
-		} else if (rightNode.left == leftNode) {
-			return rightNode.parent.value;
-		}
-
-		curNode = leftNode;
-
-		// The least common ancestor must be smaller than the greater one and greater than the smaller one.
-		while (curNode.parent != null
-				&& curNode.parent.value > leftNode.value
-				&& curNode.parent.value < rightNode.value) {
-			curNode = curNode.parent;
-		}
-
-		return curNode.value; // remove after implementation
 	}
 	
 	public class Node {

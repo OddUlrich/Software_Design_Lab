@@ -35,14 +35,6 @@ public class Parser {
         }
     }
 
-    /**
-     *  <BOOL> ::= NOT (<BOOL>) | (<BOOL> AND <BOOL>) | (<BOOL> OR <BOOL>) | TRUE | FALSE
-     *
-     *  <BOOL>   ::=  <factor> | <factor> AND <BOOL> | <factor> OR <BOOL>
-     *  <factor> ::= TRUE | FALSE | ( <BOOL> ) | NOT ( <BOOL> )
-     *
-     */
-
     public Bool parseFactor() {
         Bool factor = null;
 

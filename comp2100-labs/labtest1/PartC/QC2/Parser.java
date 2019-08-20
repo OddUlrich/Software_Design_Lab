@@ -68,7 +68,7 @@ public class Parser {
             _tokenizer.next();
             return exp;
         } else {
-            return null;
+            return exp;
         }
     }
 }

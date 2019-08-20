@@ -6,8 +6,8 @@ public class RBTree<T extends Comparable<T>> {
 
     // Check property 3
     private int blackHeightRecurse(Node cur) {
-        // Leaf node returns true.
-        if (cur.value == null) return 0;
+        // Leaf node returns 1.
+        if (cur.value == null) return 1;
 
         int leftHeight, rightHeight, curCnt;
 
