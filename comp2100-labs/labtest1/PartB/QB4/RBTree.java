@@ -5,21 +5,38 @@ public class RBTree<T extends Comparable<T>> {
     public Node<T> root; // The root node of the tree
 
     // Check property 3
-    private boolean blackNodeRecurse(Node cur) {
+    private int blackHeightRecurse(Node cur) {
         // Leaf node returns true.
-        if (cur.value == null) return true;
+        if (cur.value == null) return 0;
 
+        int leftHeight, rightHeight, curCnt;
 
-//        Node left,
-//        while ()
+        leftHeight = blackHeightRecurse(cur.left);
+        rightHeight = blackHeightRecurse(cur.right);
 
+        if (cur.colour == Colour.RED) curCnt = 0;
+        else curCnt = 1;
+
+        if (leftHeight == -1 || rightHeight == -1 || leftHeight != rightHeight) {
+            return -1;
+        } else {
+            return leftHeight + curCnt;
+        }
     }
 
     public boolean testProp3() {
         // TODO: Implement this
     	// You are allowed to use any standard library
     	// You may define additional helper methods to complete the task
-        return blackNodeRecurse(root);
+
+        int height;
+
+        height = blackHeightRecurse(root);
+        if (height == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /** 
