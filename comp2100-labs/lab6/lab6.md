@@ -8,7 +8,7 @@ Partial code for this lab is available at [here](https://gitlab.cecs.anu.edu.au/
 
 ## Task 1 - Save data to a file [0.5 marks]
 
-This stage aims to save the data of a class to a file. Open your Book Collection implementation (`BookCollection.java`) and fill in the "save" functions.
+This stage aims to save the data of a class to a file. Open your Book Collection implementation (`task/BookCollection.java`) and fill in the "save" functions.
 
 1. Directly save the class using bespoke or serialization method. For bespoke, you could define your own format for saving a book collection. Implement `saveToBespokeFile` method once you define your own format.
 2. Using JSON to save the structure of the book collection. Implement `saveToJSONFile` in `BookCollection.java`.
